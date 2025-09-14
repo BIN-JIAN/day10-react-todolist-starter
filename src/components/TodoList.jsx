@@ -9,7 +9,7 @@ const TodoList = () => {
   }
   return <div className="todo-group">
 
-    <div>TodoList</div>
+    <div className="todo-title">TodoList</div>
     {
       state.map(({id, text, done}) => {
         return (
@@ -17,7 +17,7 @@ const TodoList = () => {
             <div className={done ? 'todo-item done' : 'todo-item'}>
               <span onClick={() => toggleTodo(id)} style={{cursor: 'pointer'}}>{text}</span>
             </div>
-            <button className="delete-btn" onClick={() => dispatch({type: 'DELETE', id})}>删除</button>
+            <button className="delete-btn" onClick={() => dispatch({type: 'DELETE', id})}>×</button>
           </div>
         )
       })

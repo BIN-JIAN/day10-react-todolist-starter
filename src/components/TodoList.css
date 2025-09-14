@@ -3,6 +3,11 @@
   flex-direction: column;
   align-items: center;
 }
+.todo-title {
+  font-weight: bold;
+  font-size: 1.4em;
+  margin-bottom: 20px;
+}
 .todo-row {
   display: flex;
   align-items: center;
@@ -10,7 +15,7 @@
   justify-content: center;
 }
 .todo-item {
-  width: 200px;
+  width: 280px;
   border: 1px solid black;
   padding: 5px;
 }
@@ -19,10 +24,28 @@
 }
 .delete-btn {
   margin-left: 16px;
-  background: #ff4d4f;
-  color: white;
+  background: #dacece;
+  color: #100f0f;
   border: none;
   padding: 4px 12px;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: bold;
+}
+.todo-generator {
+  padding: 8px;
+  display: flex;
+  gap: 8px;
+}
+.todo-generator input {
+  padding: 4px 8px;
+  border: 1px solid #0a0a0a;
+}
+.todo-generator button {
+  background: #0060fd;
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-weight: bold;
 }
