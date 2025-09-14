@@ -15,6 +15,8 @@ export const todoReducer = (state, action) => {
         ...state,
         { id: nextId, text: action.text, done: false }
       ];
+    case 'DELETE':
+      return state.filter(todo => todo.id !== action.id);
     default:
       return state;
   }

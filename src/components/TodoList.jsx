@@ -12,7 +12,14 @@ const TodoList = () => {
     <div>TodoList</div>
     {
       state.map(({id, text, done}) => {
-        return <div key={id} className={done ? 'todo-item done' : 'todo-item'} onClick={() => toggleTodo(id)}>{text}</div>
+        return (
+          <div key={id} className="todo-row">
+            <div className={done ? 'todo-item done' : 'todo-item'}>
+              <span onClick={() => toggleTodo(id)} style={{cursor: 'pointer'}}>{text}</span>
+            </div>
+            <button className="delete-btn" onClick={() => dispatch({type: 'DELETE', id})}>删除</button>
+          </div>
+        )
       })
     }
     <TodoGenerator />
