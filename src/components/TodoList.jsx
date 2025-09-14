@@ -9,7 +9,7 @@ const TodoList = () => {
   }
   return <div className="todo-group">
 
-    <div>This is the TodoList Component.</div>
+    <div>TodoList</div>
     {
       state.map(({id, text, done}) => {
         return <div key={id} className={done ? 'todo-item done' : 'todo-item'} onClick={() => toggleTodo(id)}>{text}</div>
