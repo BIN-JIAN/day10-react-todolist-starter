@@ -6,33 +6,17 @@ import {
   RouterProvider
 } from "react-router";
 import TodoList from "./components/TodoList";
-import {initialState, todoReducer} from "./reducers/todoReducer";
+import {initialState, todoReducer} from "./reducers/TodoReducer";
 import {useReducer} from "react";
 import {TodoContext} from "./contexts/TodoContext";
+import {DefaultLayOut} from "./layout/DefaultLayOut";
 
-function DefaultLayout() {
-  return <>
-    <header>
-      <nav>
-        <ul>
-          <li><NavLink to={'/'}>Home</NavLink></li>
-          <li><NavLink to={'/todos'}>Todo List</NavLink> </li>
-          <li><NavLink to={'/about'}>About</NavLink></li>
-        </ul>
-      </nav>
-    </header>
-    <main>
-      <h1>xxx</h1>
-      <Outlet></Outlet>
-    </main>
-    <footer>footer copyright</footer>
-  </>;
-}
+
 
 const routes = [
   {
     path: '/',
-    element: <DefaultLayout/>,
+    element: <DefaultLayOut/>,
     children: [{
       index: true,
       element: <h1>Home page</h1>,
