@@ -2,7 +2,6 @@ import React from 'react';
 import { Layout, Menu } from 'antd';
 import { NavLink, Outlet } from "react-router";
 import { HomeOutlined, UnorderedListOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import './DefaultLayout.css';
 
 const { Header, Content, Footer } = Layout;
 
@@ -34,7 +33,7 @@ export function DefaultLayOut() {
         />
       </Header>
       <Content style={{ padding: '0 50px' }}>
-        <div className="site-layout-content">
+        <div >
           <Outlet />
         </div>
       </Content>
