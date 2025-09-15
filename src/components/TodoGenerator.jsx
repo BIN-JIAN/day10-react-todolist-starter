@@ -18,12 +18,6 @@ const TodoGenerator = () => {
     }
   };
 
-  // function addTodo() {
-  //   if (text.trim()) {
-  //     dispatch({ type: "ADD", text });
-  //     setText("");
-  //   }
-  // }
 
   return (
     <div className="todo-generator">

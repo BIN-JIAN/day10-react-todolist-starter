@@ -58,6 +58,7 @@ const TodoItem = ({ todo }) => {
             icon={<EditOutlined />}
             onClick={handleEdit}
             size="small"
+            title="编辑"
           />
           <button className="delete-btn" onClick={() => handleDelete(id)}>×</button>
         </div>
@@ -68,14 +69,14 @@ const TodoItem = ({ todo }) => {
         open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
-        okText="Save"
-        cancelText="Cancel"
+        okText="保存"
+        cancelText="取消"
       >
         <Input
           value={editedText}
           onChange={(e) => setEditedText(e.target.value)}
           autoFocus
-          placeholder="输入待办事项内容"
+          placeholder="请输入待办事项内容"
         />
       </Modal>
     </>

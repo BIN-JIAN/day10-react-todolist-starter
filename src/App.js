@@ -8,12 +8,11 @@ import {useReducer} from "react";
 import {TodoContext} from "./contexts/TodoContext";
 import {DefaultLayOut} from "./layout/DefaultLayOut";
 
-
-import TodoListPage from "./pages/TodoListPage";
 import TodoDetailPage from "./pages/TodoDetailPage";
 import DonePage from "./pages/DonePage";
 import ErrorPage from "./pages/ErrorPage";
 import AboutUsPage from "./pages/AboutUsPage";
+import TodoList from "./components/TodoList";
 
 const routes = [
   {
@@ -27,7 +26,7 @@ const routes = [
       },
       {
         path: 'todos',
-        element: <TodoListPage/>
+        element: <TodoList/>
       },
       {
         path: 'todos/:id',

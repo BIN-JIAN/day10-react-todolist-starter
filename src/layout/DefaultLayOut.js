@@ -1,12 +1,16 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
 import { NavLink, Outlet } from "react-router";
-import { HomeOutlined, UnorderedListOutlined, InfoCircleOutlined } from '@ant-design/icons';
+import {
+  HomeOutlined,
+  UnorderedListOutlined,
+  InfoCircleOutlined,
+  CheckCircleOutlined,
+} from '@ant-design/icons';
 
 const { Header, Content, Footer } = Layout;
 
 export function DefaultLayOut() {
-
   return (
     <Layout className="layout">
       <Header>
@@ -23,6 +27,11 @@ export function DefaultLayOut() {
               key: '/todos',
               icon: <UnorderedListOutlined />,
               label: <NavLink to="/todos">Todo List</NavLink>,
+            },
+            {
+              key: '/done',
+              icon: <CheckCircleOutlined />,
+              label: <NavLink to="/done">Done</NavLink>,
             },
             {
               key: '/about',
