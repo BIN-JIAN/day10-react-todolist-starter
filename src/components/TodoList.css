@@ -1,3 +1,8 @@
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .todo-group {
   display: flex;
   flex-direction: column;
