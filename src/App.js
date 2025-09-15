@@ -1,35 +1,47 @@
 import './App.css';
 import {
   createBrowserRouter,
-  NavLink,
-  Outlet,
   RouterProvider
 } from "react-router";
-import TodoList from "./components/TodoList";
 import {initialState, todoReducer} from "./reducers/TodoReducer";
 import {useReducer} from "react";
 import {TodoContext} from "./contexts/TodoContext";
 import {DefaultLayOut} from "./layout/DefaultLayOut";
 
 
+import TodoListPage from "./pages/TodoListPage";
+import TodoDetailPage from "./pages/TodoDetailPage";
+import DonePage from "./pages/DonePage";
+import ErrorPage from "./pages/ErrorPage";
+import AboutUsPage from "./pages/AboutUsPage";
 
 const routes = [
   {
     path: '/',
     element: <DefaultLayOut/>,
-    children: [{
-      index: true,
-      element: <h1>Home page</h1>,
-    },
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        index: true,
+        element: <h1>Home page</h1>,
+      },
       {
         path: 'todos',
-        element: <TodoList/>
+        element: <TodoListPage/>
+      },
+      {
+        path: 'todos/:id',
+        element: <TodoDetailPage/>
+      },
+      {
+        path: 'done',
+        element: <DonePage/>
       },
       {
         path: 'about',
-        element: <h1>About page</h1>
-
-      }]
+        element: <AboutUsPage/>
+      }
+    ]
   }
 ]
 const router = createBrowserRouter(routes);
@@ -42,7 +54,6 @@ function App() {
           <RouterProvider router={router}></RouterProvider>
         </TodoContext.Provider>
       </div>
-
   );
 }
 
