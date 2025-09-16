@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { TodoContext } from "../contexts/TodoContext";
 import './TodoList.css';
 import { addTodo } from "../apis/api";
+import {message} from "antd";
 
 const TodoGenerator = () => {
   const [text, setText] = useState("");
@@ -12,9 +13,15 @@ const TodoGenerator = () => {
         done: false,
         text: text.trim(),
       }
-      const response = await addTodo(newTodo);
-      dispatch({type:'ADD',todo:response.data});
-       setText('');
+      try {
+        const response = await addTodo(newTodo);
+        dispatch({type: 'ADD', todo: response.data});
+        setText('');
+        message.info('添加成功');
+      }
+      catch (error) {
+        alert(error);
+      }
     }
   };
 

@@ -17,9 +17,11 @@ export const addTodo = async(todo) => {
 }
 
 export const deleteTodo = async(id) => {
-  const response = await instance.delete(`/todos/${id}`)
-  return response
+
+    const response = await instance.delete(`/todos/${id}`);
+    return response;
 }
+
 export const updateTodo = async(id, updatedTodo) => {
   const response = await instance.put(`/todos/${id}`, updatedTodo)
   return response

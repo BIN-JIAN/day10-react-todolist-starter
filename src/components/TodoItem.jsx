@@ -2,33 +2,32 @@ import React, { useContext, useState } from "react";
 import { TodoContext } from "../contexts/TodoContext";
 import "./TodoList.css";
 import { deleteTodo, updateTodo } from "../apis/api";
-import { Button, Input, Modal } from "antd";
+import {Button, Input, message, Modal} from "antd";
 import { EditOutlined } from "@ant-design/icons";
+import {data} from "react-router";
 
 const TodoItem = ({ todo }) => {
   const { dispatch } = useContext(TodoContext);
   const { id, text, done } = todo;
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [editedText, setEditedText] = useState(text);
+  const [loading, setLoading] = useState(false);
 
   async function toggleTodo(id) {
     const updatedTodo = {
       ...todo,
       done: !done
     };
-    try {
       const response = await updateTodo(id, updatedTodo);
       if (response && response.data) {
         dispatch({ type: 'DONE', id });
       }
-    } catch (error) {
-      console.error("更新待办事项状态失败:", error);
-    }
+
   }
 
   async function handleDelete(id) {
-    await deleteTodo(id);
-    dispatch({ type: 'DELETE', id });
+      await deleteTodo(id);
+      dispatch({ type: 'DELETE', id });
   }
 
   const handleEdit = () => {
@@ -42,22 +41,40 @@ const TodoItem = ({ todo }) => {
   };
 
   const handleOk = async () => {
-    if (editedText.trim() && editedText !== text) {
-      // 确保updatedTodo包含完整的todo对象，明确包含text和done字段
+    // 加强空白内容的检测
+    const trimmedText = editedText ? editedText.trim() : '';
+
+    if (!trimmedText) {
+      message.error("待办事项内容不能为空");
+      return;
+    }
+
+    if (trimmedText === text) {
+      setIsModalVisible(false);
+      return; // 内容没有变化，直接关闭modal
+    }
+
+    setLoading(true);
+
+    try {
       const updatedTodo = {
         ...todo,
-        text: editedText
+        text: trimmedText
       };
-      try {
-        const response = await updateTodo(id, updatedTodo);
-        if (response && response.data) {
-          dispatch({ type: 'UPDATE_TEXT', id, text: editedText });
-        }
-      } catch (error) {
-        console.error("更新待办事项文本失败:", error);
+
+      const response = await updateTodo(id, updatedTodo);
+
+      if (response && response.data) {
+        dispatch({ type: 'UPDATE_TEXT', id, text: trimmedText });
+        setIsModalVisible(false);
+        message.success("更新成功");
+      }
+    } catch (error) {
+      if (error.response.data.code === 422) {
+        message.error(`请求参数无效: ${data?.message || '更新内容不能为空'}`);
+        setLoading(false);
       }
     }
-    setIsModalVisible(false);
   };
 
   return (
@@ -90,12 +107,14 @@ const TodoItem = ({ todo }) => {
         onCancel={handleCancel}
         okText="保存"
         cancelText="取消"
+        confirmLoading={loading}
       >
         <Input
           value={editedText}
           onChange={(e) => setEditedText(e.target.value)}
           autoFocus
           placeholder="请输入待办事项内容"
+          disabled={loading}
         />
       </Modal>
     </>
