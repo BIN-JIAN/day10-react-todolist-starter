@@ -12,9 +12,18 @@ const TodoItem = ({ todo }) => {
   const [editedText, setEditedText] = useState(text);
 
   async function toggleTodo(id) {
-    const updatedTodo = { ...todo, done: !done };
-    await updateTodo(id, updatedTodo);
-    dispatch({ type: 'DONE', id });
+    const updatedTodo = {
+      ...todo,
+      done: !done
+    };
+    try {
+      const response = await updateTodo(id, updatedTodo);
+      if (response && response.data) {
+        dispatch({ type: 'DONE', id });
+      }
+    } catch (error) {
+      console.error("更新待办事项状态失败:", error);
+    }
   }
 
   async function handleDelete(id) {
@@ -34,9 +43,19 @@ const TodoItem = ({ todo }) => {
 
   const handleOk = async () => {
     if (editedText.trim() && editedText !== text) {
-      const updatedTodo = { ...todo, text: editedText };
-      await updateTodo(id, updatedTodo);
-      dispatch({ type: 'UPDATE_TEXT', id, text: editedText });
+      // 确保updatedTodo包含完整的todo对象，明确包含text和done字段
+      const updatedTodo = {
+        ...todo,
+        text: editedText
+      };
+      try {
+        const response = await updateTodo(id, updatedTodo);
+        if (response && response.data) {
+          dispatch({ type: 'UPDATE_TEXT', id, text: editedText });
+        }
+      } catch (error) {
+        console.error("更新待办事项文本失败:", error);
+      }
     }
     setIsModalVisible(false);
   };

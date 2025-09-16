@@ -13,7 +13,7 @@ export const todoReducer = (state, action) => {
       return [
         ...state,
         action.todo
-      ];
+      ].sort((a, b) => a.id - b.id);
     case 'DELETE':
       return state.filter(todo => todo.id !== action.id);
     case 'LOAD_TODOS':
